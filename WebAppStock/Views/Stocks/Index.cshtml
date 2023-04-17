@@ -14,10 +14,10 @@
                 ID
             </th>
             <th>
-                ID Articulo
+                Articulo
             </th>
             <th>
-                ID Deposito
+                Deposito
             </th>
             <th>
                 Cantidad
@@ -29,8 +29,8 @@
         {
             <tr>
                 <td>@stock.Id</td>
-                <td>@stock.IdArticulo</td>
-                <td>@stock.IdDeposito</td>
+                <td>@(stock.Articulos != null ? stock.Articulos.Nombre : "N/A").<br /><i>Id: @stock.IdArticulo</i></td>
+                <td>@(stock.IdDepositoNavigation != null ? stock.IdDepositoNavigation.Nombre : "N/A").<br /><i>Id: @stock.IdDeposito</i></td>
                 <td>@stock.Cantidad</td>
             </tr>
         }
