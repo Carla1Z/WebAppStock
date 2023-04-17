@@ -1,4 +1,6 @@
-﻿using Microsoft.AspNetCore.Mvc;
+﻿using CodigoComun.Modelos;
+using CodigoComun.Negocio;
+using Microsoft.AspNetCore.Mvc;
 
 namespace WebAppStock.Controllers
 {
@@ -6,7 +8,12 @@ namespace WebAppStock.Controllers
     {
         public IActionResult Index()
         {
-            return View();
+            StockServices stockServices = new StockServices();
+            var stocks = stockServices.TodosLosStocks();
+
+            return View(stocks);
         }
+
+
     }
 }

@@ -1,4 +1,6 @@
-﻿using Microsoft.AspNetCore.Mvc;
+﻿using CodigoComun.Modelos;
+using CodigoComun.Negocio;
+using Microsoft.AspNetCore.Mvc;
 
 namespace WebAppStock.Controllers
 {
@@ -6,7 +8,9 @@ namespace WebAppStock.Controllers
     {
         public IActionResult Index()
         {
-            return View();
+            Articulo articulo = new Articulo();
+            var todos = articulo.GetTodosLosArticulos();
+            return View(todos);
         }
     }
 }
