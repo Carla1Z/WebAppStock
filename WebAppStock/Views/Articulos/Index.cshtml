@@ -6,45 +6,50 @@
 *@
 @{
 }
-<h1>Soy en Index de Articulo</h1>
+<h1>Articulos</h1>
+<a class="btn btn-primary" asp-action="Create">Agregar</a>
 <table class="table">
-    <thead>
-        <tr>
-            <th>
-                ID
-            </th>
-            <th>
-                Nombre
-            </th>
-            <th>
-                Marca
-            </th>
-            <th>
-                MinimoStock
-            </th> 
-            <th>
-                Proveedor
-            </th>  
-            <th>
-                Precio
-            </th> 
-            <th>
-                Codigo
-            </th>
-        </tr>
-    </thead>
-    <tbody>
-        @foreach (var articulo in Model)
-        {
-            <tr>
-                <td>@articulo.Id</td>
-                <td>@articulo.Nombre</td>
-                <td>@articulo.Marca</td>
-                <td>@articulo.MinimoStock</td>
-                <td>@articulo.Proveedor</td>
-                <td>@articulo.Precio</td>
-                <td>@articulo.Codigo</td>
-            </tr>
-        }
-    </tbody>
+	<thead>
+		<tr>
+			<th>
+				ID
+			</th>
+			<th>
+				Nombre
+			</th>
+			<th>
+				Marca
+			</th>
+			<th>
+				MinimoStock
+			</th>
+			<th>
+				Proveedor
+			</th>
+			<th>
+				Precio
+			</th>
+			<th>
+				Codigo
+			</th>
+		</tr>
+	</thead>
+	<tbody>
+		@foreach (var articulo in Model)
+		{
+			<tr>
+				<td>@articulo.Id</td>
+				<td>@articulo.Nombre</td>
+				<td>@articulo.Marca</td>
+				<td>@articulo.MinimoStock</td>
+				<td>@articulo.Proveedor</td>
+				<td>@articulo.Precio</td>
+				<td>@articulo.Codigo</td>
+				<td>
+					<a class="btn btn-success" asp-action="Edit" asp-route-id="@articulo.Id">Editar</a>
+					<a class="btn btn-danger" asp-action="Delete" asp-route-id="@articulo.Id">Eliminar</a>
+				</td>
+			</tr>
+		}
+	</tbody>
 </table>

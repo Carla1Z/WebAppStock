@@ -1,5 +1,4 @@
 ﻿@using CodigoComun.Entities;
-@*@model Deposito*@
 @model IEnumerable<Deposito>
 
 @*
@@ -7,41 +6,38 @@
 *@
 @{
 }
-<h1>Soy en Index de Depositos</h1>
-<br />
-<h3>Datos del deposito</h3>
-@*<ul>
-    <li><b>Id: </b> @Model.Id</li>
-    <li><b>Nombre: </b> @Model.Nombre</li>
-    <li><b>Capacidad: </b> @Model.Capacidad</li>
-    <li><b>Dirección: </b> @Model.Direccion</li>
-</ul>*@
+<h1>Depositos</h1>
+<a class="btn btn-primary" asp-action="Create">Agregar</a>
 <table class="table">
-    <thead>
-        <tr>
-            <th>
-                ID
-            </th>
-            <th>
-                Nombre
-            </th>
-            <th>
-                Capacidad
-            </th>
-            <th>
-                Direccion
-            </th>
-        </tr>
-    </thead>
-    <tbody>
-        @foreach (var deposito in Model)
-        {
-            <tr>
-                <td>@deposito.Id</td>
-                <td>@deposito.Nombre</td>
-                <td>@deposito.Capacidad</td>
-                <td>@deposito.Direccion</td>
-            </tr>
-        }
-    </tbody>
+	<thead>
+		<tr>
+			<th>
+				ID
+			</th>
+			<th>
+				Nombre
+			</th>
+			<th>
+				Capacidad
+			</th>
+			<th>
+				Direccion
+			</th>
+		</tr>
+	</thead>
+	<tbody>
+		@foreach (var deposito in Model)
+		{
+			<tr>
+				<td>@deposito.Id</td>
+				<td>@deposito.Nombre</td>
+				<td>@deposito.Capacidad</td>
+				<td>@deposito.Direccion</td>
+				<td>
+					<a class="btn btn-success" asp-action="Edit" asp-route-id="@deposito.Id">Editar</a>
+					<a class="btn btn-danger" asp-action="Delete" asp-route-id="@deposito.Id">Eliminar</a>
+				</td>
+			</tr>
+		}
+	</tbody>
 </table>

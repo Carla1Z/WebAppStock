@@ -1,0 +1,56 @@
+﻿@using CodigoComun.Modelos
+@*
+    For more information on enabling MVC for empty projects, visit https://go.microsoft.com/fwlink/?LinkID=397860
+*@
+@{
+}
+@model Articulo
+
+<h1>Edita el articulo</h1>
+<div class="row">
+	<div class="col-md-4">
+		<form asp-action="Edit" method="post">
+
+			<div class="form-group">
+				<label class="control-label">Nombre</label>
+				<input asp-for="Nombre" class="form-control" />
+			</div>
+
+			<div class="form-group">
+				<label class="control-label">Marca</label>
+				<input asp-for="Marca" class="form-control" />
+			</div>
+
+			<div class="form-group">
+				<label class="control-label">Minimo Stock</label>
+				<input asp-for="MinimoStock" class="form-control" />
+			</div>
+
+			<div class="form-group">
+				<label class="control-label">Proveedor</label>
+				<input asp-for="Proveedor" class="form-control" />
+			</div>
+
+			<div class="form-group">
+				<label class="control-label">Precio</label>
+				<input asp-for="Precio" class="form-control" />
+			</div>
+
+
+			<div class="form-group">
+				<label class="control-label">Codigo</label>
+				<input asp-for="Codigo" class="form-control" />
+			</div>
+			<br />
+			<div class="form-group">
+				<input type="submit" value="Guardar" class="btn btn-primary" />
+				<br />
+				<label>@ViewBag.Mensaje</label>
+			</div>
+		</form>
+	</div>
+</div>
+
+<div>
+	<a asp-action="Index">Volver</a>
+</div>
