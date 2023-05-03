@@ -1,38 +1,43 @@
-﻿@using CodigoComun.Entities
-@model IEnumerable<Stock>
+﻿@using CodigoComun.Modelos.DTO;
+@model IEnumerable<StockDTO>
 
 @*
     For more information on enabling MVC for empty projects, visit https://go.microsoft.com/fwlink/?LinkID=397860
 *@
 @{
 }
-<h1>Soy en Index de Stocks</h1>
+<h1>Stocks</h1>
+<a class="btn btn-primary" asp-action="Create">Agregar</a>
 <table class="table">
-    <thead>
-        <tr>
-            <th>
-                ID
-            </th>
-            <th>
-                Articulo
-            </th>
-            <th>
-                Deposito
-            </th>
-            <th>
-                Cantidad
-            </th>
-        </tr>
-    </thead>
-    <tbody>
-        @foreach (var stock in Model)
-        {
-            <tr>
-                <td>@stock.Id</td>
-                <td>@(stock.Articulos != null ? stock.Articulos.Nombre : "N/A").<br /><i>Id: @stock.IdArticulo</i></td>
-                <td>@(stock.IdDepositoNavigation != null ? stock.IdDepositoNavigation.Nombre : "N/A").<br /><i>Id: @stock.IdDeposito</i></td>
-                <td>@stock.Cantidad</td>
-            </tr>
-        }
-    </tbody>
+	<thead>
+		<tr>
+			<th>
+				ID
+			</th>
+			<th>
+				Articulo
+			</th>
+			<th>
+				Deposito
+			</th>
+			<th>
+				Cantidad
+			</th>
+		</tr>
+	</thead>
+	<tbody>
+		@foreach (var stock in Model)
+		{
+			<tr>
+				<td>@stock.Id</td>
+				<td>@(stock.Articulo != null ? stock.Articulo.Nombre : "N/A").<br /><i>Codigo: @(stock.Articulo.Codigo != "" ? stock.Articulo.Codigo : "N/A")</i></td>
+				<td>@(stock.Deposito != null ? stock.Deposito.Nombre : "N/A").<br /><i>Id: @stock.IdDeposito</i></td>
+				<td>@stock.Cantidad</td>
+				<td>
+					<a class="btn btn-success" asp-action="Edit" asp-route-id="@stock.Id">Editar</a>
+					<a class="btn btn-danger" asp-action="Delete" asp-route-id="@stock.Id">Eliminar</a>
+				</td>
+			</tr>
+		}
+	</tbody>
 </table>

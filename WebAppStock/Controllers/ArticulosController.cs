@@ -1,4 +1,5 @@
 ﻿using CodigoComun.Modelos;
+using CodigoComun.Modelos.DTO;
 using CodigoComun.Negocio;
 using Microsoft.AspNetCore.Mvc;
 
@@ -7,56 +8,58 @@ namespace WebAppStock.Controllers
 	public class ArticulosController : Controller
 	{
 		private ArticuloServices articuloServices = new ArticuloServices();
-		private Articulo articulo = new Articulo();
 
 		[HttpGet]
 		public IActionResult Index()
 		{
-			var todos = articulo.GetTodosLosArticulos();
+			var todos = articuloServices.TodosLosArticulos();
 			return View(todos);
 		}
 
 		public IActionResult Create()
 		{
-			var articuloACompletar = new Articulo();
+			var articuloACompletar = new ArticuloDTO();
 			return View(articuloACompletar);
 		}
 
 		[HttpPost]
-		public IActionResult Create(Articulo articuloAGuardar)
+		public IActionResult Create(ArticuloDTO articuloDTOAGuardar)
 		{
-			string mensaje = articuloServices.AgregarArticulo(articuloAGuardar);
+			articuloDTOAGuardar = articuloServices.AgregarArticulo(articuloDTOAGuardar);
 
-			if (mensaje == "Articulo Agregado")
+			if (articuloDTOAGuardar.HuboError == false)
 			{
+				ViewBag.Mensaje = articuloDTOAGuardar.Mensaje;
 				return RedirectToAction("Index");
 			}
 			else
 			{
-				ViewBag.Mensaje = mensaje;
-				return View(articuloAGuardar);
+				ViewBag.Mensaje = articuloDTOAGuardar.Mensaje;
+				return View(articuloDTOAGuardar);
 			}
 		}
 
 		public IActionResult Edit(int Id)
 		{
-			var articuloAEditar = articulo.GetArticuloPorId(Id);
+			//var articuloAEditar = articulo.GetArticuloPorId(Id);
+			ArticuloDTO articuloAEditar = articuloServices.ArticuloPorId(Id);
 			return View(articuloAEditar);
 		}
 
 		[HttpPost]
-		public IActionResult Edit(Articulo articuloAModificar)
+		public IActionResult Edit(ArticuloDTO articuloAModificar)
 		{
-			string mensaje = articuloServices.ModificarArticulo(articuloAModificar);
+			//string mensaje = articuloServices.ModificarArticulo(articuloAModificar);
+			ArticuloDTO editarArticulo = articuloServices.ModificarArticulo(articuloAModificar);
 
-			if (mensaje == "Articulo Modificado")
+			if (editarArticulo != null)
 			{
-				ViewBag.Mensaje = mensaje;
+				ViewBag.Mensaje = editarArticulo.Mensaje;
 				return View(articuloAModificar);
 			}
 			else
 			{
-				ViewBag.Mensaje = mensaje;
+				ViewBag.Mensaje = editarArticulo.Mensaje;
 				return View(articuloAModificar);
 			}
 		}
@@ -64,15 +67,16 @@ namespace WebAppStock.Controllers
 
 		public IActionResult Delete(int Id)
 		{
-			string mensaje = articuloServices.EliminarArticulo(Id);
+			//string mensaje = articuloServices.EliminarArticulo(Id);
+			ArticuloDTO eliminarArticulo = articuloServices.ArticuloPorId(Id);
 
-			if (mensaje == "Articulo eliminado")
+			if (eliminarArticulo != null)
 			{
 				return RedirectToAction("Index");
 			}
 			else
 			{
-				ViewBag.Mensaje = mensaje;
+				ViewBag.Mensaje = eliminarArticulo.Mensaje;
 				return View();
 			}
 		}

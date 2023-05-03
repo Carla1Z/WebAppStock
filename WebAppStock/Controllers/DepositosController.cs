@@ -1,4 +1,5 @@
 ﻿using CodigoComun.Entities;
+using CodigoComun.Modelos.DTO;
 using CodigoComun.Negocio;
 using Microsoft.AspNetCore.Mvc;
 
@@ -8,13 +9,6 @@ namespace WebAppStock.Controllers
     {
         private DepositoServices depositoServices = new DepositoServices();
 
-		//public IActionResult Index(int Id)
-		//{
-		//    DepositoServices depositoServices = new DepositoServices();
-		//    var deposito = depositoServices.depositoPorId(Id);
-		//    return View(deposito);
-		//}  
-
 		public IActionResult Index()
         {
             var deposito = depositoServices.TodosLosDepositos();
@@ -23,60 +17,62 @@ namespace WebAppStock.Controllers
 
         public IActionResult Create()
         {
-            var depositoACompletar = new Deposito();
+            var depositoACompletar = new DepositoDTO();
             return View(depositoACompletar);
         }
-
         [HttpPost]
-        public IActionResult Create(Deposito depositoAAgregar)
+        public IActionResult Create(DepositoDTO depositoDTOAAgregar)
         {
-            string mensaje = depositoServices.AgregarDeposito(depositoAAgregar);
+			depositoDTOAAgregar = depositoServices.AgregarDeposito(depositoDTOAAgregar);
 
-            if (mensaje == "Deposito Agregado")
+            if (depositoDTOAAgregar.HuboError == false)
             {
-                return RedirectToAction("Index");
+                ViewBag.Mensaje = depositoDTOAAgregar.Mensaje;
+				return RedirectToAction("Index");
             }
             else
             {
-                ViewBag.Mensaje = mensaje;
-                return View(depositoAAgregar);
+                ViewBag.Mensaje = depositoDTOAAgregar.Mensaje;
+                return View(depositoDTOAAgregar);
             }
         }
 
         public IActionResult Edit(int Id)
         {
-            var depositoAEditar = depositoServices.depositoPorId(Id);
+            DepositoDTO depositoAEditar = depositoServices.depositoPorId(Id);
             return View(depositoAEditar);
         }
 
         [HttpPost]
-        public IActionResult Edit(Deposito depositoAModificar)
+        public IActionResult Edit(DepositoDTO depositoAModificar)
         {
-            string mensaje = depositoServices.ModificarDeposito(depositoAModificar);
+            //string mensaje = depositoServices.ModificarDeposito(depositoAModificar);
+            DepositoDTO editarDeposito = depositoServices.ModificarDeposito(depositoAModificar);
 
-            if (mensaje == "Deposito Modificado")
+            if (editarDeposito != null)
             {
-                ViewBag.Mensaje = mensaje;
+                ViewBag.Mensaje = editarDeposito.Mensaje;
                 return View(depositoAModificar);
             }
             else
             {
-                ViewBag.Mensaje = mensaje;
+                ViewBag.Mensaje = editarDeposito.Mensaje;
                 return View(depositoAModificar);
             }
         }
 
         public IActionResult Delete(int Id)
         {
-            string mensaje = depositoServices.EliminarDepositoSeleccionado(Id);
+            //string mensaje = depositoServices.EliminarDepositoSeleccionado(Id);
+            DepositoDTO eliminarDeposito = depositoServices.EliminarDepositoSeleccionado(Id);
 
-            if (mensaje == "Deposito eliminado")
+            if (eliminarDeposito != null)
             {
                 return RedirectToAction("Index");
             }
             else
             {
-                ViewBag.Mensaje = mensaje;
+                ViewBag.Mensaje = eliminarDeposito.Mensaje;
                 return View();
             }
         }
