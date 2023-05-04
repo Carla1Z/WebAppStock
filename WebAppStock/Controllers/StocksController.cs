@@ -10,9 +10,9 @@ namespace WebAppStock.Controllers
 {
 	public class StocksController : Controller
 	{
+		StockServices stockServices = new StockServices();
 		public IActionResult Index()
 		{
-			StockServices stockServices = new StockServices();
 			var stocks = stockServices.TodosLosStocks();
 
 			// Obtener los nombres de los artículos
@@ -52,11 +52,9 @@ namespace WebAppStock.Controllers
 			return View(stockViewModel);
 		}
 
-
 		[HttpPost]
 		public IActionResult Create(StockViewModel stockViewModel)
 		{
-			StockServices stockServices = new StockServices();
 			StockDTO stockDTOAAgregar = stockServices.AgregarStock(stockViewModel.StockDTO);
 			stockViewModel.StockDTO = stockDTOAAgregar;
 
@@ -73,6 +71,44 @@ namespace WebAppStock.Controllers
 
 		}
 
+		public IActionResult Edit(int Id)
+		{
+			StockDTO stockAEditar = stockServices.stockPorId(Id);
+			return View(stockAEditar);
+		}
+
+		[HttpPost]
+		public IActionResult Edit(StockDTO stockAModificar)
+		{
+			StockDTO editarStock = stockServices.ModificarStock(stockAModificar);
+
+			if (editarStock != null)
+			{
+				ViewBag.Mensaje = editarStock.Mensaje;
+				return View(stockAModificar);
+			}
+			else
+			{
+				ViewBag.Mensaje = editarStock.Mensaje;
+				return View(stockAModificar);
+			}
+		}
+
+		public IActionResult Delete(int Id)
+		{
+			StockDTO eliminarStock = stockServices.EliminarStockSeleccionado(Id);
+
+			if(eliminarStock != null)
+			{ 
+				return RedirectToAction("Index");
+			}
+			else
+			{
+				ViewBag.Mensaje = eliminarStock.Mensaje;
+				return View();
+			}
+
+		}
 
 	}
 }
