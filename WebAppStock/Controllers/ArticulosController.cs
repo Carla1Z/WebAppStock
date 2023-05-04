@@ -68,7 +68,7 @@ namespace WebAppStock.Controllers
 		public IActionResult Delete(int Id)
 		{
 			//string mensaje = articuloServices.EliminarArticulo(Id);
-			ArticuloDTO eliminarArticulo = articuloServices.ArticuloPorId(Id);
+			ArticuloDTO eliminarArticulo = articuloServices.EliminarArticulo(Id);
 
 			if (eliminarArticulo != null)
 			{
