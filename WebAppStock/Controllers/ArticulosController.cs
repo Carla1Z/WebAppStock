@@ -41,7 +41,6 @@ namespace WebAppStock.Controllers
 
 		public IActionResult Edit(int Id)
 		{
-			//var articuloAEditar = articulo.GetArticuloPorId(Id);
 			ArticuloDTO articuloAEditar = articuloServices.ArticuloPorId(Id);
 			return View(articuloAEditar);
 		}
@@ -49,7 +48,6 @@ namespace WebAppStock.Controllers
 		[HttpPost]
 		public IActionResult Edit(ArticuloDTO articuloAModificar)
 		{
-			//string mensaje = articuloServices.ModificarArticulo(articuloAModificar);
 			ArticuloDTO editarArticulo = articuloServices.ModificarArticulo(articuloAModificar);
 
 			if (editarArticulo != null)
@@ -67,7 +65,6 @@ namespace WebAppStock.Controllers
 
 		public IActionResult Delete(int Id)
 		{
-			//string mensaje = articuloServices.EliminarArticulo(Id);
 			ArticuloDTO eliminarArticulo = articuloServices.EliminarArticulo(Id);
 
 			if (eliminarArticulo != null)

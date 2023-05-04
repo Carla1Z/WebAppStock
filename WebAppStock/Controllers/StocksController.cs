@@ -56,7 +56,23 @@ namespace WebAppStock.Controllers
 		[HttpPost]
 		public IActionResult Create(StockViewModel stockViewModel)
 		{
-			return View(stockViewModel);
+			StockServices stockServices = new StockServices();
+			StockDTO stockDTOAAgregar = stockServices.AgregarStock(stockViewModel.StockDTO);
+			stockViewModel.StockDTO = stockDTOAAgregar;
+
+			if (stockViewModel.StockDTO.HuboError == false)
+			{
+				ViewBag.Mensaje = stockViewModel.StockDTO.Mensaje;
+				return RedirectToAction("Index");
+			}
+			else
+			{
+				ViewBag.Mensaje = stockViewModel.StockDTO.Mensaje;
+				return View(stockViewModel);
+			}
+
 		}
+
+
 	}
 }

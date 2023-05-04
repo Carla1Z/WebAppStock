@@ -11,16 +11,28 @@
 	<div class="col-md-4">
 		<form asp-action="Create" method="post">
 
-			<div class="form-group">
+			@*<div class="form-group">
 				<label class="control-label">Articulo</label><br />
 				@Html.DropDownListFor(model => model.StockDTO.IdArticulo, Model.selectArticulosList, new { @class = "form-select" })
-
-			</div>
+			</div>*@
 
 			<div class="form-group">
+				<label asp-for="StockDTO.IdArticulo" class="control-label">Articulo</label>
+				<select asp-for="StockDTO.IdArticulo" asp-items="Model.selectArticulosList" class="form-select"></select>
+			</div>
+
+
+		@*	<div class="form-group">
 				<label class="control-label">Deposito</label><br />
 				@Html.DropDownListFor(model => model.StockDTO.IdDeposito, Model.selectDepositosList, new { @class = "form-select" })
+			</div>*@
+
+			<div class="form-group">
+				<label asp-for="StockDTO.IdDeposito" class="control-label">Depósito</label>
+				<select asp-for="StockDTO.IdDeposito" asp-items="Model.selectDepositosList" class="form-select"></select>
 			</div>
+
+
 
 			<div class="form-group">
 				<label class="control-label">Cantidad</label>
