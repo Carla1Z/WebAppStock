@@ -17,5 +17,36 @@ namespace WebApiStock.Controllers
 			articuloDTO = services.AgregarArticulo(articuloDTO);
 			return Ok(articuloDTO);
 		}
+
+		[HttpDelete]
+		public IActionResult Delete(int Id)
+		{
+			ArticuloDTO eliminarArticulo = services.EliminarArticulo(Id);
+			return Ok(eliminarArticulo);
+		}
+
+		[HttpPost]
+		[Route("{Id}")]
+		public IActionResult Edit(ArticuloDTO Id)
+		{
+			ArticuloDTO editar = services.ModificarArticulo(Id);
+			return Ok(editar);
+		}
+
+		[HttpGet]
+		public IActionResult Get()
+		{
+			List<ArticuloDTO> articuloDTOs = services.TodosLosArticulos();
+			return Ok(articuloDTOs);
+		}
+
+
+		[HttpGet]
+		[Route("{Id}")]
+		public IActionResult Get(int Id)
+		{
+			ArticuloDTO articuloDTO = services.ArticuloPorId(Id);
+			return Ok(articuloDTO);
+		}
 	}
 }
