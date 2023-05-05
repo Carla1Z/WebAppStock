@@ -1,4 +1,6 @@
-﻿using Microsoft.AspNetCore.Http;
+﻿using CodigoComun.Modelos.DTO;
+using CodigoComun.Negocio;
+using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
 
 namespace WebApiStock.Controllers
@@ -7,5 +9,13 @@ namespace WebApiStock.Controllers
 	[ApiController]
 	public class ArticulosController : ControllerBase
 	{
+		private ArticuloServices services = new ArticuloServices();
+
+		[HttpPost]
+		public IActionResult Post(ArticuloDTO articuloDTO)
+		{
+			articuloDTO = services.AgregarArticulo(articuloDTO);
+			return Ok(articuloDTO);
+		}
 	}
 }
