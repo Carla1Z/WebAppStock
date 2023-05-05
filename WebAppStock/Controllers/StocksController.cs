@@ -68,38 +68,56 @@ namespace WebAppStock.Controllers
 				ViewBag.Mensaje = stockViewModel.StockDTO.Mensaje;
 				return View(stockViewModel);
 			}
-
 		}
 
 		public IActionResult Edit(int Id)
 		{
-			StockDTO stockAEditar = stockServices.stockPorId(Id);
-			return View(stockAEditar);
+			StockDTO stockDTO = stockServices.stockPorId(Id);
+
+			ArticuloServices articuloServices = new ArticuloServices();
+			ArticuloDTO articuloDTO = articuloServices.ArticuloPorId((int)stockDTO.IdArticulo);
+
+			DepositoServices depositoServices = new DepositoServices();
+			DepositoDTO depositoDTO = depositoServices.depositoPorId((int)stockDTO.IdDeposito);
+
+			// Nuevo objeto StockViewModel con la información de la base de datos
+			StockViewModel stockViewModel = new StockViewModel();
+			stockViewModel.StockDTO = stockDTO;
+			stockViewModel.Articulos = articuloServices.TodosLosArticulos();
+			stockViewModel.Deposito = depositoServices.TodosLosDepositos();
+			stockViewModel.selectArticulosList = new SelectList(stockViewModel.Articulos, "Id", "Nombre", articuloDTO.Id);
+			stockViewModel.selectDepositosList = new SelectList(stockViewModel.Deposito, "Id", "Nombre", depositoDTO.Id);
+
+			return View(stockViewModel);
 		}
 
+
 		[HttpPost]
-		public IActionResult Edit(StockDTO stockAModificar)
+		public IActionResult Edit(StockViewModel stockViewModel)
 		{
+			StockDTO stockAModificar = stockViewModel.StockDTO;
 			StockDTO editarStock = stockServices.ModificarStock(stockAModificar);
 
 			if (editarStock != null)
 			{
 				ViewBag.Mensaje = editarStock.Mensaje;
-				return View(stockAModificar);
+				return RedirectToAction("Index");
 			}
 			else
 			{
 				ViewBag.Mensaje = editarStock.Mensaje;
-				return View(stockAModificar);
+				return View(stockViewModel);
 			}
 		}
+
+
 
 		public IActionResult Delete(int Id)
 		{
 			StockDTO eliminarStock = stockServices.EliminarStockSeleccionado(Id);
 
-			if(eliminarStock != null)
-			{ 
+			if (eliminarStock != null)
+			{
 				return RedirectToAction("Index");
 			}
 			else

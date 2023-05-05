@@ -1,0 +1,42 @@
+﻿@using WebAppStock.ViewModel;
+@*
+    For more information on enabling MVC for empty projects, visit https://go.microsoft.com/fwlink/?LinkID=397860
+*@
+@{
+}
+@model StockViewModel
+
+<h1>Crear Stock</h1>
+<div class="row">
+	<div class="col-md-4">
+		<form asp-action="Edit" method="post">
+
+			<div class="form-group">
+				<label asp-for="StockDTO.IdArticulo" class="control-label">Articulo</label>
+				<select asp-for="StockDTO.IdArticulo" asp-items="Model.selectArticulosList ?? Enumerable.Empty<SelectListItem>()" class="form-select"></select>
+			</div>
+
+			<div class="form-group">
+				<label asp-for="StockDTO.IdDeposito" class="control-label">Depósito</label>
+				<select asp-for="StockDTO.IdDeposito" asp-items="Model.selectDepositosList ?? Enumerable.Empty<SelectListItem>()" class="form-select"></select>
+			</div>
+
+
+			<div class="form-group">
+				<label class="control-label">Cantidad</label>
+				<input asp-for="StockDTO.Cantidad" class="form-control" />
+			</div>
+			<input type="hidden" asp-for="StockDTO.Id" />
+			<br />
+			<div class="form-group">
+				<input type="submit" value="Guardar" class="btn btn-primary" />
+				<br />
+				<label>@ViewBag.Mensaje</label>
+			</div>
+		</form>
+	</div>
+</div>
+
+<div>
+	<a asp-action="Index">Volver</a>
+</div>
