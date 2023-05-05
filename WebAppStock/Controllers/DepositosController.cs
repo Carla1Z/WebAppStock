@@ -46,7 +46,6 @@ namespace WebAppStock.Controllers
         [HttpPost]
         public IActionResult Edit(DepositoDTO depositoAModificar)
         {
-            //string mensaje = depositoServices.ModificarDeposito(depositoAModificar);
             DepositoDTO editarDeposito = depositoServices.ModificarDeposito(depositoAModificar);
 
             if (editarDeposito != null)
@@ -63,7 +62,6 @@ namespace WebAppStock.Controllers
 
         public IActionResult Delete(int Id)
         {
-            //string mensaje = depositoServices.EliminarDepositoSeleccionado(Id);
             DepositoDTO eliminarDeposito = depositoServices.EliminarDepositoSeleccionado(Id);
 
             if (eliminarDeposito != null)
