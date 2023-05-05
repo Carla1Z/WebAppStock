@@ -10,36 +10,46 @@ namespace WebApiStock.Controllers
 	[ApiController]
 	public class StocksController : ControllerBase
 	{
-		[HttpGet]
-		public IActionResult GetStocks()
-		{
-			StockServices services = new StockServices();
-			List<StockDTO> stockDTO = services.TodosLosStocks();
-			return Ok(stockDTO);
-		}
 
-		[HttpGet]
-		public IActionResult Get(int Id)
-		{
-			StockServices services = new StockServices();
-			Stock stock = services.stockPorId(Id);
-			return Ok(stock);
-		}
-
-		[HttpDelete]
-		public IActionResult Delete(StockDTO Id)
-		{
-			StockServices services = new StockServices();
-			StockDTO stock = services.EliminarStockSeleccionado(Id);
-			return Ok(stock);
-		}
+		private StockServices services = new StockServices();
 
 		[HttpPost]
 		public IActionResult Post(StockDTO stockDTO)
 		{
-			StockServices services = new StockServices();
 			stockDTO = services.AgregarStock(stockDTO);
 			return Ok(stockDTO);
 		}
+
+		[HttpDelete]
+		public IActionResult Delete(int Id)
+		{
+			StockDTO eliminarStock = services.EliminarStockSeleccionado(Id);
+			return Ok(eliminarStock);
+		}
+
+		[HttpPost]
+		[Route("{Id}")]
+		public IActionResult Edit(StockDTO Id)
+		{
+			StockDTO editar = services.ModificarStock(Id);
+			return Ok(editar);
+		}
+
+		[HttpGet]
+		public IActionResult GetStocks()
+		{
+			List<StockDTO> stockDTOs = services.TodosLosStocks();
+			return Ok(stockDTOs);
+		}
+
+		[HttpGet]
+		[Route("{Id}")]
+		public IActionResult Get(int Id)
+		{
+			StockDTO stockDTOs = services.stockPorId(Id);
+			return Ok(stockDTOs);
+		}
+
+
 	}
 }
