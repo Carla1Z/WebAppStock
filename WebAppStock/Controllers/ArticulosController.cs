@@ -69,11 +69,12 @@ namespace WebAppStock.Controllers
 
 			if (eliminarArticulo != null)
 			{
+				TempData["Mensaje"] = eliminarArticulo.Mensaje;
 				return RedirectToAction("Index");
 			}
 			else
 			{
-				ViewBag.Mensaje = eliminarArticulo.Mensaje;
+				TempData["Mensaje"] = eliminarArticulo.Mensaje;
 				return View();
 			}
 		}

@@ -8,6 +8,10 @@
 }
 <h1>Depositos</h1>
 <a class="btn btn-primary" asp-action="Create">Agregar</a>
+@if (TempData.ContainsKey("Mensaje"))
+{
+	<div class="alert alert-danger">@TempData["Mensaje"]</div>
+}
 <table class="table">
 	<thead>
 		<tr>

@@ -66,7 +66,8 @@ namespace WebAppStock.Controllers
 
             if (eliminarDeposito != null)
             {
-                return RedirectToAction("Index");
+				TempData["Mensaje"] = eliminarDeposito.Mensaje;
+				return RedirectToAction("Index");
             }
             else
             {
