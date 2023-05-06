@@ -60,13 +60,13 @@ namespace WebAppStock.Controllers
 
 			if (stockViewModel.StockDTO.HuboError == false)
 			{
-				ViewBag.Mensaje = stockViewModel.StockDTO.Mensaje;
+				TempData["Mensaje"] = stockViewModel.StockDTO.Mensaje;
 				return RedirectToAction("Index");
 			}
 			else
 			{
-				ViewBag.Mensaje = stockViewModel.StockDTO.Mensaje;
-				return View(stockViewModel);
+				TempData["Mensaje"] = stockViewModel.StockDTO.Mensaje;
+				return View();
 			}
 		}
 
