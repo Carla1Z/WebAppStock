@@ -29,12 +29,12 @@ namespace WebAppStock.Controllers
 
 			if (articuloDTOAGuardar.HuboError == false)
 			{
-				ViewBag.Mensaje = articuloDTOAGuardar.Mensaje;
+				TempData["Mensaje"] = articuloDTOAGuardar.Mensaje;
 				return RedirectToAction("Index");
 			}
 			else
 			{
-				ViewBag.Mensaje = articuloDTOAGuardar.Mensaje;
+				TempData["Mensaje"] = articuloDTOAGuardar.Mensaje;
 				return View(articuloDTOAGuardar);
 			}
 		}
@@ -52,12 +52,12 @@ namespace WebAppStock.Controllers
 
 			if (editarArticulo != null)
 			{
-				ViewBag.Mensaje = editarArticulo.Mensaje;
+				TempData["Mensaje"] = editarArticulo.Mensaje;
 				return View(articuloAModificar);
 			}
 			else
 			{
-				ViewBag.Mensaje = editarArticulo.Mensaje;
+				TempData["Mensaje"] = editarArticulo.Mensaje;
 				return View(articuloAModificar);
 			}
 		}

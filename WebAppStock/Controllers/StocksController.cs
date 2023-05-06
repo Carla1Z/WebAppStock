@@ -100,12 +100,12 @@ namespace WebAppStock.Controllers
 
 			if (editarStock != null)
 			{
-				ViewBag.Mensaje = editarStock.Mensaje;
+				TempData["Mensaje"] = editarStock.Mensaje;
 				return RedirectToAction("Index");
 			}
 			else
 			{
-				ViewBag.Mensaje = editarStock.Mensaje;
+				TempData["Mensaje"] = editarStock.Mensaje;
 				return View(stockViewModel);
 			}
 		}
@@ -118,11 +118,12 @@ namespace WebAppStock.Controllers
 
 			if (eliminarStock != null)
 			{
+				TempData["Mensaje"] = eliminarStock.Mensaje;
 				return RedirectToAction("Index");
 			}
 			else
 			{
-				ViewBag.Mensaje = eliminarStock.Mensaje;
+				TempData["Mensaje"] = eliminarStock.Mensaje;
 				return View();
 			}
 

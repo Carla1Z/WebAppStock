@@ -27,12 +27,12 @@ namespace WebAppStock.Controllers
 
             if (depositoDTOAAgregar.HuboError == false)
             {
-                ViewBag.Mensaje = depositoDTOAAgregar.Mensaje;
+                TempData["Mensaje"] = depositoDTOAAgregar.Mensaje;
 				return RedirectToAction("Index");
             }
             else
             {
-                ViewBag.Mensaje = depositoDTOAAgregar.Mensaje;
+                TempData["Mensaje"] = depositoDTOAAgregar.Mensaje;
                 return View(depositoDTOAAgregar);
             }
         }
@@ -50,12 +50,12 @@ namespace WebAppStock.Controllers
 
             if (editarDeposito != null)
             {
-                ViewBag.Mensaje = editarDeposito.Mensaje;
+                TempData["Mensaje"] = editarDeposito.Mensaje;
                 return View(depositoAModificar);
             }
             else
             {
-                ViewBag.Mensaje = editarDeposito.Mensaje;
+                TempData["Mensaje"] = editarDeposito.Mensaje;
                 return View(depositoAModificar);
             }
         }
